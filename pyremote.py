@@ -30,13 +30,13 @@ api = Api(app)
 
 class RemoteControl(Resource):
     def get(self, command):
-       try:
+        try:
            s.write(bytes.fromhex(COMMANDS[command]))
-       except KeyboardInterrupt:
+        except KeyboardInterrupt:
            s.close()
         except:
             return "Failed. Something went wrong."
-       return "OK"
+        return "OK"
 #api.add_resource(RemoteControl,'/remote/')
 api.add_resource(RemoteControl,'/remote/<command>')
 
