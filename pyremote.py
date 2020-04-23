@@ -22,7 +22,10 @@ COMMANDS = {
     "PLAY" :      "9E6140BF",
     "STOP" :      "9E616A95",
     "OPEN_CLOSE" :      "9E61807F",
-    "MUTE": "5EA138C7"
+    "MUTE": "5EA138C7",
+    "NEXT" : "9E61609F",
+    "PREV": "9E61A05F",
+    "PAUSE": "9E61AA55"
 }
 s = serial.Serial('/dev/ttyUSB0', 9600)
 app = Flask(__name__)
