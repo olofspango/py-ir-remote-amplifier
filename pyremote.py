@@ -52,7 +52,6 @@ repeating = False
 
 @app.route('/repeatOn')
 def startRepeat():
-    repeating = True
     while(repeating):
         print("Repeating")
         time.sleep(1)
@@ -63,7 +62,11 @@ def stopRepeat():
     repeating = False
     return "Stopped repeating"
 
-
+def repeater():
+    while(repeating):
+        print("Repeating")
+        time.sleep(1)
+    print("repeater stopped")
 
 class RemoteControl(Resource):
     def get(self, command):
