@@ -41,6 +41,13 @@ s = serial.Serial('/dev/ttyUSB0', 9600)
 app = Flask(__name__)
 api = Api(app)
 
+@app.after_request
+def after_request(response):
+    header = response.headers
+    header['Access-Control-Allow-Origin'] = '*'
+    return respose
+
+
 class RemoteControl(Resource):
     def get(self, command):
         try:
