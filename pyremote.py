@@ -55,6 +55,7 @@ class RemoteControl(Resource):
             if(command.startswith("VOLUME")):
                 repeatCount = 3
             for i in range(0, repeatCount):
+                println('Sending command ' + command)
                 s.write(bytes.fromhex(COMMANDS[command]))
                 time.sleep(0.040)
 
