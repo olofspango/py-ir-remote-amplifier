@@ -11,12 +11,12 @@ COMMANDS = {
     "LINE3" :   "5EA103FC",
     "COAXIAL" :   "5EA118E7",
     "OPTICAL" :   "5EA1CA34",
-    "KEY_TUNER" :   "5EA16897",      #  Was: TUNER
+    "TUNER" :   "5EA16897",      #  Was: TUNER
     "PHONO" :   "5EA128D7",
-    "KEY_CD" :   "5EA1A857",    #  Was: CD
+    "CD" :   "5EA1A857",    #  Was: CD
     "BAND" :   "5EA1758A",
-    "KEY_VOLUMEUP" :   "5EA158A7",       #  Was: VOLUME_PLUS
-    "KEY_VOLUMEDOWN" :   "5EA1D827",
+    "VOLUMEUP" :   "5EA158A7",       #  Was: VOLUME_PLUS
+    "VOLUMEDOWN" :   "5EA1D827",
     "BAND" :      "7E81758A",
     "STANDBY" :      "7E8154AB",
     "PLAY" :      "9E6140BF",
