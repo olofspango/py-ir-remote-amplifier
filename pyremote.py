@@ -53,6 +53,7 @@ repeating = False
 @app.route('/repeatOn')
 def startRepeat():
     global repeating
+    print("Started repeating")
     repeating = True
     repeater()
     return "Started Repeating"
@@ -66,8 +67,9 @@ def stopRepeat():
 def repeater():
     global repeating
     while(repeating):
-        s.write(bytes.fromhex("ffffffff"))
-        time.sleep(0.030)
+        s.write(bytes.fromhex("01ffffffff"))
+        time.sleep(0.200)
+        print("FFFFFFFF")
 
 class RemoteControl(Resource):
     def get(self, command):
@@ -77,7 +79,7 @@ class RemoteControl(Resource):
             #     repeatCount = 1 # Had this set to 3 before, but fixed so that if you hold the button IR sends repeat command
             # for i in range(0, repeatCount):
             print('Sending command ' + command)
-            s.write(bytes.fromhex(COMMANDS[command]))
+            s.write(bytes.fromhex("00" + COMMANDS[command]))
             # time.sleep(0.040)
 
         except KeyboardInterrupt:
