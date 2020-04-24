@@ -52,9 +52,8 @@ repeating = False
 
 @app.route('/repeatOn')
 def startRepeat():
-    while(repeating):
-        print("Repeating")
-        time.sleep(1)
+    repeating = True
+    repeater()
     return "Repeated a bunch of times."
 
 @app.route('/repeatOff')
