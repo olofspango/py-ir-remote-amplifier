@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Resource, Api, reqparse
 
 import serial
-# import time
+import time
 
 # CONSTANTS
 COMMANDS = {
@@ -51,7 +51,13 @@ def after_request(response):
 class RemoteControl(Resource):
     def get(self, command):
         try:
-           s.write(bytes.fromhex(COMMANDS[command]))
+            repeatCount = 1
+            if(command.startswith("VOLUME")):
+                repeatCount = 3
+            for i in range(0, repeatCount):
+                s.write(bytes.fromhex(COMMANDS[command]))
+                time.sleep(0.040)
+
         except KeyboardInterrupt:
            s.close()
         except:
