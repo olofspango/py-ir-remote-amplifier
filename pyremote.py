@@ -55,20 +55,19 @@ def startRepeat():
     global repeating
     repeating = True
     repeater()
-    return "Repeated a bunch of times."
+    return "Started Repeating"
 
 @app.route('/repeatOff')
 def stopRepeat():
     global repeating
     repeating = False
-    return "Stopped repeating"
+    return "Stopped Repeating"
 
 def repeater():
     global repeating
     while(repeating):
-        print("Repeating")
-        time.sleep(1)
-    print("repeater stopped")
+        s.write(0xffffffff)
+        time.sleep(0.030)
 
 class RemoteControl(Resource):
     def get(self, command):
