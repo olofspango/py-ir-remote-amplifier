@@ -48,17 +48,33 @@ def after_request(response):
     header['Access-Control-Allow-Origin'] = '*'
     return response
 
+repeating = False
+
+@app.route('/repeatOn')
+def startRepeat():
+    repeating = True
+    while(repeating):
+        print("Repeating")
+        time.sleep(1)
+    return "Repeated a bunch of times."
+
+@app.route('/repeatOff')
+def stopRepeat():
+    repeating = False
+    return "Stopped repeating"
+
+
 
 class RemoteControl(Resource):
     def get(self, command):
         try:
-            repeatCount = 1
-            if(command.startswith("VOLUME")):
-                repeatCount = 3
-            for i in range(0, repeatCount):
-                print('Sending command ' + command)
-                s.write(bytes.fromhex(COMMANDS[command]))
-                time.sleep(0.040)
+            # repeatCount = 1
+            # if(command.startswith("VOLUME")):
+            #     repeatCount = 1 # Had this set to 3 before, but fixed so that if you hold the button IR sends repeat command
+            # for i in range(0, repeatCount):
+            print('Sending command ' + command)
+            s.write(bytes.fromhex(COMMANDS[command]))
+            # time.sleep(0.040)
 
         except KeyboardInterrupt:
            s.close()
