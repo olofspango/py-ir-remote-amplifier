@@ -35,7 +35,8 @@ COMMANDS = {
     "OPEN_CLOSE" :      "9E61807F",
     "MUTE": "5EA138C7",
     "FORWARD" : "9E61609F",
-    "REWIND": "9E61A05F"
+    "REWIND": "9E61A05F",
+    "REPEAT" : "FFFFFFFF"
 }
 s = serial.Serial('/dev/ttyUSB0', 9600)
 app = Flask(__name__)
@@ -55,7 +56,7 @@ class RemoteControl(Resource):
             if(command.startswith("VOLUME")):
                 repeatCount = 3
             for i in range(0, repeatCount):
-                println('Sending command ' + command)
+                print('Sending command ' + command)
                 s.write(bytes.fromhex(COMMANDS[command]))
                 time.sleep(0.040)
 
