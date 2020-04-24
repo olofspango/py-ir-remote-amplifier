@@ -48,31 +48,32 @@ def after_request(response):
     header['Access-Control-Allow-Origin'] = '*'
     return response
 
-repeating = False
 
-@app.route('/repeatOn')
-def startRepeat():
-    global repeating
-    print("Started repeating")
-    repeating = True
-    repeater()
-    return "Started Repeating"
+# @app.route('/repeatOn')
+# def startRepeat():
+#     print("Started repeating")
+#     s.write(bytes.fromhex("01" + ))
+#     repeater()
+#     return "Started Repeating"
 
-@app.route('/repeatOff')
-def stopRepeat():
-    global repeating
-    repeating = False
-    return "Stopped Repeating"
+# @app.route('/repeatOff')
+# def stopRepeat():
+#     global repeating
+#     repeating = False
+#     return "Stopped Repeating"
 
-def repeater():
-    global repeating
-    while(repeating):
-        s.write(bytes.fromhex("01ffffffff"))
-        time.sleep(0.200)
-        print("FFFFFFFF")
+# def repeater():
+#     global repeating
+#     while(repeating):
+#         s.write(bytes.fromhex("01ffffffff"))
+#         time.sleep(0.200)
+#         print("FFFFFFFF")
 
 class RemoteControl(Resource):
-    def get(self, command):
+    def get(self, command, repeat):
+        if(repeat == "start") {
+            print("starting!")
+        }
         try:
             # repeatCount = 1
             # if(command.startswith("VOLUME")):
@@ -88,7 +89,7 @@ class RemoteControl(Resource):
             return "Failed. Something went wrong."
         return "OK"
 #api.add_resource(RemoteControl,'/remote/')
-api.add_resource(RemoteControl,'/remote/<command>')
+api.add_resource(RemoteControl,'/remote/<command>/<repeat>')
 
 
 if __name__ == "__main__":
