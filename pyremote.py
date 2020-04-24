@@ -66,7 +66,7 @@ def stopRepeat():
 def repeater():
     global repeating
     while(repeating):
-        s.write(bytes.fromhex("0xffffffff")
+        s.write(bytes.fromhex("0xffffffff"))
         time.sleep(0.030)
 
 class RemoteControl(Resource):
