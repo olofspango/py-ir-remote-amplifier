@@ -52,16 +52,19 @@ repeating = False
 
 @app.route('/repeatOn')
 def startRepeat():
+    global repeating
     repeating = True
     repeater()
     return "Repeated a bunch of times."
 
 @app.route('/repeatOff')
 def stopRepeat():
+    global repeating
     repeating = False
     return "Stopped repeating"
 
 def repeater():
+    global repeating
     while(repeating):
         print("Repeating")
         time.sleep(1)
