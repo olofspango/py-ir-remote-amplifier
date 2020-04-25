@@ -36,7 +36,10 @@ COMMANDS = {
     "MUTE": "5EA138C7",
     "FORWARD" : "9E61609F",
     "REWIND": "9E61A05F",
-    "REPEAT" : "FFFFFFFF"
+    "REPEAT" : "FFFFFFFF",
+    "SONY_POWER" : "00000A90",
+    "SONY_VOLUMEUP" : "00000490",
+    "SONY_VOLUMEDOWN" : "00000C90"
 }
 s = serial.Serial('/dev/ttyUSB0', 9600)
 app = Flask(__name__)
@@ -55,13 +58,15 @@ class RemoteControl(Resource):
             s.write(bytes.fromhex("01" + COMMANDS[command]))
         try:
             if(repeat == "start"):
-               repeatCode = "01"
+               commandCode = "01"
             elif (repeat == "stop"):
-               repeatCode = "02"
+               commandCode = "02"
+            elif (command.startwith("SONY")):
+                commandCode = "03"
             else:
-               repeatCode = "00"
-            print('Sending command ' + command + " with repeatcode " +  repeatCode)
-            s.write(bytes.fromhex(repeatCode + COMMANDS[command]))
+               commandCode = "00"
+            print('Sending command ' + command + " with repeatcode " +  commandCode)
+            s.write(bytes.fromhex(commandCode + COMMANDS[command]))
             # time.sleep(0.040)
 
         except KeyboardInterrupt:
@@ -69,7 +74,6 @@ class RemoteControl(Resource):
         except:
             return "Failed. Something went wrong."
         return "OK"
-#api.add_resource(RemoteControl,'/remote/')
 api.add_resource(RemoteControl,'/remote/<command>/<repeat>')
 
 
