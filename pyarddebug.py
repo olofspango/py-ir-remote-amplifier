@@ -39,39 +39,22 @@ COMMANDS = {
     "REPEAT" : "FFFFFFFF"
 }
 s = serial.Serial('/dev/ttyUSB0', 9600)
-app = Flask(__name__)
-api = Api(app)
-
-@app.after_request
-def after_request(response):
-    header = response.headers
-    header['Access-Control-Allow-Origin'] = '*'
-    return response
-
-class RemoteControl(Resource):
-    def get(self, command, repeat):
-        if(repeat == "start"):
-            print("starting!")
-            s.write(bytes.fromhex("01" + COMMANDS[command]))
-        try:
-            if(repeat == "start"):
-               repeatCode = "01"
-            elif (repeat == "stop"):
-               repeatCode = "02"
-            else:
-               repeatCode = "00"
-            print('Sending command ' + command + " with repeatcode " +  repeatCode)
-            s.write(bytes.fromhex(repeatCode + COMMANDS[command]))
-            # time.sleep(0.040)
-
-        except KeyboardInterrupt:
-           s.close()
-        except:
-            return "Failed. Something went wrong."
-        return "OK"
-#api.add_resource(RemoteControl,'/remote/')
-api.add_resource(RemoteControl,'/remote/<command>/<repeat>')
 
 
-if __name__ == "__main__":
-  app.run(port="5002", host="0.0.0.0")
+command = "VOLUMEUP"
+print('Sending command ' + command)
+try:
+  s.write(bytes.fromhex("01" + COMMANDS[command]))
+  time.sleep(2)
+  s.write(bytes.fromhex("02" + COMMANDS[command]))
+  time.sleep(2)
+  s.write(bytes.fromhex("01" + COMMANDS["VOLUMEDOWN"]))
+  time.sleep(2)
+  s.write(bytes.fromhex("02" + COMMANDS["VOLUMEDOWN"]))
+
+  while True:
+      data = s.readline()
+      if data:
+          print(data)
+except KeyboardInterrupt:
+  s.close()
