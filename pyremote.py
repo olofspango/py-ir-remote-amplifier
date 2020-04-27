@@ -39,8 +39,19 @@ COMMANDS = {
     "REPEAT" : "FFFFFFFF",
     "SONY_POWER" : "00000A90",
     "SONY_VOLUMEUP" : "00000490",
-    "SONY_VOLUMEDOWN" : "00000C90"
+    "SONY_VOLUMEDOWN" : "00000C90",
+    "SONY_ACTIONMENU" :"00006923",
+    "SONY_OK" : "00000A70"
 }
+
+SONY_NUMBER_OF_BITS = {
+    "SONY_POWER": 12,
+    "SONY_VOLUMEDOWN": 12,
+    "SONY_VOLUMEUP" : 12,
+    "SONY_ACTIONMENU" : 15,
+    "SONY_OK": 12
+}
+
 s = serial.Serial('/dev/ttyUSB0', 9600)
 app = Flask(__name__)
 api = Api(app)
@@ -62,10 +73,13 @@ class RemoteControl(Resource):
             elif (repeat == "stop"):
                commandCode = "02"
             elif (command.startwith("SONY")):
-                commandCode = "03"
+                command = "03"
+                numberOfBits = SONY_NUMBER_OF_BITS[command]
+                commandCode = (numberOfBits << 3) + command
             else:
                commandCode = "00"
             print('Sending command ' + command + " with repeatcode " +  commandCode)
+            
             s.write(bytes.fromhex(commandCode + COMMANDS[command]))
             # time.sleep(0.040)
 
