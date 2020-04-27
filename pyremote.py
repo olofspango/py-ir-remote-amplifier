@@ -64,7 +64,11 @@ COMMANDS = {
     "SONY_PAUSE" : "00004CE9",
     "SONY_NEXT" : "00005EE9",
     "SONY_PREVIOUS" : "00001EE9",
-    "SONY_STOP" : "00000CE9"
+    "SONY_STOP" : "00000CE9",
+    "SONY_LEFT" : "000002d0",
+    "SONY_UP" : "000002F0",
+    "SONY_RIGHT" : "00000CD0",
+    "SONY_DOWN" : "00000AF0"
 }
 
 SONY_NUMBER_OF_BITS = {
@@ -96,7 +100,10 @@ SONY_NUMBER_OF_BITS = {
     "SONY_NEXT" : 15,
     "SONY_PREVIOUS" : 15,
     "SONY_STOP" : 15,
-
+    "SONY_LEFT" : 12,
+    "SONY_UP" : 12,
+    "SONY_RIGHT" : 12,
+    "SONY_DOWN" : 12
 }
 
 s = serial.Serial('/dev/ttyUSB0', 9600)
