@@ -73,9 +73,9 @@ class RemoteControl(Resource):
             elif (repeat == "stop"):
                commandCode = "02"
             elif (command.startswith("SONY")):
-                commandType = "03"
+                commandType = 3
                 numberOfBits = SONY_NUMBER_OF_BITS[command]
-                commandCode = (numberOfBits << 3) + commandType
+                commandCode = (( hex((numberOfBits << 3) + commandType) ) + "" ).replace("0x", "")
             else:
                commandCode = "00"
             print('Sending command ' + command + " with repeatcode " +  commandCode)
@@ -84,7 +84,8 @@ class RemoteControl(Resource):
 
         except KeyboardInterrupt:
            s.close()
-        except:
+        except Exception as e:
+            print(e)
             return "Failed. Something went wrong."
         return "OK"
 api.add_resource(RemoteControl,'/remote/<command>/<repeat>')
