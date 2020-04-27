@@ -61,7 +61,7 @@ class RemoteControl(Resource):
                commandCode = "01"
             elif (repeat == "stop"):
                commandCode = "02"
-            elif (command.startwith("SONY")):
+            elif (command.startswith("SONY")):
                 commandCode = "03"
             else:
                commandCode = "00"
