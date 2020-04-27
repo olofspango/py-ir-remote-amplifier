@@ -79,7 +79,6 @@ class RemoteControl(Resource):
             else:
                commandCode = "00"
             print('Sending command ' + command + " with repeatcode " +  commandCode)
-            
             s.write(bytes.fromhex(commandCode + COMMANDS[command]))
             # time.sleep(0.040)
 
