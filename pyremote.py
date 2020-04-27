@@ -72,10 +72,10 @@ class RemoteControl(Resource):
                commandCode = "01"
             elif (repeat == "stop"):
                commandCode = "02"
-            elif (command.startwith("SONY")):
-                command = "03"
+            elif (command.startswith("SONY")):
+                commandType = "03"
                 numberOfBits = SONY_NUMBER_OF_BITS[command]
-                commandCode = (numberOfBits << 3) + command
+                commandCode = (numberOfBits << 3) + commandType
             else:
                commandCode = "00"
             print('Sending command ' + command + " with repeatcode " +  commandCode)
