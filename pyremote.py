@@ -1,8 +1,10 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
+from datetime import datetime
 
 import serial
 import time
+import json
 
 # CONSTANTS
 COMMANDS = {
@@ -132,18 +134,18 @@ class RemoteControl(Resource):
                 commandCode = (( hex((numberOfBits << 3) + commandType) ) + "" ).replace("0x", "")
             else:
                commandCode = "00"
-            print('Sending command ' + command + " with repeatcode " +  commandCode)
+            print(json.dumps({"time": str(datetime.now()), "message":'Sending command ' + command + " with repeatcode " +  commandCode}))
             s.write(bytes.fromhex(commandCode + COMMANDS[command]))
             # time.sleep(0.040)
 
         except KeyboardInterrupt:
            s.close()
         except Exception as e:
-            print(e)
+            print(json.dumps({"time": str(datetime.now()), "message": e}))
             return "Failed. Something went wrong."
         return "OK"
 api.add_resource(RemoteControl,'/remote/<command>/<repeat>')
 
 
 if __name__ == "__main__":
-  app.run(port="5002", host="0.0.0.0")
+  app.run(port="5002", host="127.0.0.1")
